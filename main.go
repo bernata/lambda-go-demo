@@ -10,10 +10,15 @@ type MyEvent struct {
         Name string `json:"name"`
 }
 
-func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
-        return fmt.Sprintf("Hello %s!", name.Name ), nil
+type MyResponse struct {
+        Name string `json:"name"`
+	Time int `json:"time"`
+}
+
+func handleRequest(ctx context.Context, event MyEvent) (MyResponse, error) {
+	return MyResponse{Name: fmt.Sprintf("Hello World: %s!", event.Name ), Time: 1234}, nil
 }
 
 func main() {
-        lambda.Start(HandleRequest)
+        lambda.Start(handleRequest)
 }
